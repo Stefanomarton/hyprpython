@@ -3,7 +3,7 @@ import pickle
 from pathlib import Path
 import sys
 import argparse
-import hyprpython.hyprpyton as hp
+import hyprpyton as hp
 import os
 
 

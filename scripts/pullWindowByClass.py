@@ -1,4 +1,4 @@
-import hyprpython.hyprpyton as hp
+import hyprpyton as hp
 import argparse
 
 
