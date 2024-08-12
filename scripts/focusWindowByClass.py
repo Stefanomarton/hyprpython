@@ -3,7 +3,10 @@ from pathlib import Path
 import sys
 import argparse
 
-path_root = Path(__file__).parents[1]
+# Resolve the actual file path if the script is executed via a symlink
+script_path = Path(__file__).resolve()
+path_root = script_path.parents[1]
+
 sys.path.append(str(path_root))
 
 # Import the module from the parent directory
@@ -16,7 +19,9 @@ def main():
     args = parser.parse_args()
 
     client = hp.Clients.get()
+
     client_ordered = client.byFocusID()
+
     current_window = client.focused()
 
     emacs_windows = [
@@ -46,7 +51,7 @@ def main():
                     for i, item in enumerate(loaded_items)
                     if item.address == current_window.address
                 ),
-                0,
+                None,
             )
 
         if index == len(loaded_items) - 1:
