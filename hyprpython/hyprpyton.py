@@ -227,3 +227,9 @@ class Hyprctl:
     @staticmethod
     def focus_window(address):
         Hyprctl.hyprctl_command(f"dispatch focuswindow address:{address}")
+
+    @staticmethod
+    def move_to_workspace_silent(address, wsId):
+        Hyprctl.hyprctl_command(
+            f"dispatch movetoworkspacesilent {wsId},address:{address}"
+        )
