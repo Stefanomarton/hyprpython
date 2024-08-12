@@ -56,8 +56,10 @@ def main():
 
         if index == len(loaded_items) - 1:
             hp.Hyprctl.focus_window(loaded_items[0].address)
-            with open(f"/tmp/{args.window_class}.pkl", "w") as file:
-                pass
+
+            file_path = f"/tmp/{args.window_class}.pkl"
+            if os.path.exists(file_path):
+                os.remove(file_path)
 
             # Serialize and write the list of objects to a file
             with open(f"/tmp/{args.window_class}.pkl", "wb") as file:
