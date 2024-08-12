@@ -67,24 +67,27 @@ class Client:
 
 @dataclass
 class Clients:
-    list: list[Client]
-
     @classmethod
     def get(cls):
         command = "hyprctl -j clients"
         output = subprocess.check_output(command.split())
         data = json.loads(output)
         clients = [Client.from_dict(client) for client in data]
-        return cls(list=clients)
+        return clients
 
-    def byFocusID(self):
-        sorted_clients = sorted(self.list, key=operator.attrgetter("focusHistoryID"))
-        return Clients(list=sorted_clients)
+    @classmethod
+    def byFocusID(cls):
+        clients = cls.get()
+        sorted_clients = sorted(clients, key=operator.attrgetter("focusHistoryID"))
+        return sorted_clients
 
-    def focused(self):
-        for client in self.list:
+    @classmethod
+    def focused(cls):
+        clients = cls.get()  # Get the list of clients
+        for client in clients:
             if client.focusHistoryID == 0:
-                return client
+                return client  # Return the focused Client object directly
+        return None  # Return None if no focused client is found
 
 
 @dataclass
@@ -156,18 +159,18 @@ class Monitor:
 
 @dataclass
 class Monitors:
-    list: list[Monitor]
-
     @classmethod
     def get(cls):
         command = "hyprctl -j monitors"
         output = subprocess.check_output(command.split())
         data = json.loads(output)
         monitors = [Monitor.from_dict(monitor) for monitor in data]
-        return cls(list=monitors)
+        return monitors
 
-    def focused(self):
-        for monitor in self.list:
+    @classmethod
+    def focused(cls):
+        monitors = cls.get()
+        for monitor in monitors:
             if monitor.focused is True:
                 return monitor
 
@@ -199,15 +202,13 @@ class Workspace:
 
 @dataclass
 class Workspaces:
-    list: list[Workspace]
-
     @classmethod
     def get(cls):
         command = "hyprctl -j workspaces"
         output = subprocess.check_output(command.split())
         data = json.loads(output)
         workspaces = [Workspace.from_dict(workspaces) for workspaces in data]
-        return cls(list=workspaces)
+        return workspaces
 
     @classmethod
     def current(cls):
@@ -215,7 +216,7 @@ class Workspaces:
         output = subprocess.check_output(command.split())
         data = json.loads(output)
         workspace = Workspace.from_dict(data)
-        return cls(list=workspace)
+        return workspace
 
 
 class Hyprctl:
