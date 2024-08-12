@@ -1,16 +1,10 @@
+#!/usr/bin/env python3
 import pickle
 from pathlib import Path
 import sys
 import argparse
-
-# Resolve the actual file path if the script is executed via a symlink
-script_path = Path(__file__).resolve()
-path_root = script_path.parents[1]
-
-sys.path.append(str(path_root))
-
-# Import the module from the parent directory
 import hyprpython.hyprpyton as hp
+import os
 
 
 def main():
@@ -18,16 +12,14 @@ def main():
     parser.add_argument("window_class", help="cycle focus to windows with window_class")
     args = parser.parse_args()
 
-    client = hp.Clients.get()
+    client = hp.Clients
 
     client_ordered = client.byFocusID()
 
     current_window = client.focused()
 
     emacs_windows = [
-        windows
-        for windows in client_ordered.list
-        if windows.wm_class == args.window_class
+        windows for windows in client_ordered if windows.wm_class == args.window_class
     ]
 
     focus_list = [w for w in emacs_windows if w.workspace.id > 0]
