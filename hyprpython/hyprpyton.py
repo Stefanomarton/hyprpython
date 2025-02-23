@@ -29,8 +29,7 @@ class Client:
     xwayland: bool
     pinned: bool
     fullscreen: bool
-    fullscreenMode: int
-    fakeFullscreen: bool
+    fullscreenClient: bool
     grouped: list
     tags: list
     swallowing: str
@@ -56,8 +55,7 @@ class Client:
             xwayland=data["xwayland"],
             pinned=data["pinned"],
             fullscreen=data["fullscreen"],
-            fullscreenMode=data["fullscreenMode"],
-            fakeFullscreen=data["fakeFullscreen"],
+            fullscreenClient=data["fullscreenClient"],
             grouped=data["grouped"],
             tags=data["tags"],
             swallowing=data["swallowing"],
