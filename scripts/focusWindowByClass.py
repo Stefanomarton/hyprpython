@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+import hyprpython as hp
 import pickle
 from pathlib import Path
 import sys
 import argparse
-import hyprpyton as hp
 import os
 
 

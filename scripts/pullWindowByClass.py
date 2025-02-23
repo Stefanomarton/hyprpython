@@ -1,6 +1,6 @@
-import hyprpyton as hp
+#!/usr/bin/env python
+import hyprpython as hp
 import argparse
-
 
 def main():
     parser = argparse.ArgumentParser()
